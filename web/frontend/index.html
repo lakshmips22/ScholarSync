@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScholarSync | Smart Scholarship Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* Navigation */
+        nav {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e6e9ef;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #173b70;
+        }
+
+        .logo span {
+            color: #16a6a0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            margin-left: 28px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #16a6a0;
+        }
+
+        #studentLogoutButton {
+            margin-left: 20px;
+            border: 1px solid #d8dee8;
+            border-radius: 8px;
+            padding: 8px 12px;
+            background: #ffffff;
+            color: #173b70;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #studentGreeting {
+            margin-left: 20px;
+            color: #087c77;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 75px 7%;
+            background: linear-gradient(135deg, #eef5ff, #f2fbfa);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #173b70;
+        }
+
+        .hero h1 span {
+            color: #16a6a0;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #5b6472;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            border: none;
+            background: #173b70;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .hero button:hover {
+            background: #102d55;
+        }
+
+        .hero-card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(23, 59, 112, 0.12);
+            width: 300px;
+        }
+
+        .hero-card h3 {
+            color: #173b70;
+            margin-bottom: 15px;
+        }
+
+        .hero-card p {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        /* Scholarship Section */
+        .section {
+            padding: 60px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #173b70;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #6b7280;
+            margin-bottom: 22px;
+        }
+
+        /* Search */
+        #searchInput {
+            width: min(600px, 100%);
+            padding: 14px 18px;
+            border: 1px solid #d8dee8;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        #searchInput:focus {
+            border-color: #16a6a0;
+            box-shadow: 0 0 0 3px rgba(22, 166, 160, 0.1);
+        }
+
+        .discovery-tools {
+            max-width: 1050px;
+            margin: 0 auto 32px;
+            padding: 24px;
+            background: #ffffff;
+            border: 1px solid #e6e9ef;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(23, 59, 112, 0.05);
+        }
+
+        .search-wrap {
+            margin-bottom: 20px;
+        }
+
+        .search-wrap label,
+        .filter-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: none;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .filter-field input,
+        .filter-field select {
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 12px;
+            border: 1px solid #d8dee8;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #172033;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        .filter-field input:focus,
+        .filter-field select:focus {
+            border-color: #16a6a0;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(22, 166, 160, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        #clearFiltersButton {
+            border: 1px solid #173b70;
+            border-radius: 9px;
+            padding: 10px 16px;
+            background: #ffffff;
+            color: #173b70;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #clearFiltersButton:hover {
+            background: #eef5ff;
+        }
+
+        #resultCount {
+            color: #64748b;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .category-badge {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #eaf7f6;
+            color: #087c77;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Scholarship Cards */
+        #scholarshipContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .scholarship-card {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid #e6e9ef;
+            transition: 0.2s;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .scholarship-card h3 {
+            color: #173b70;
+            margin-bottom: 12px;
+        }
+
+        .scholarship-card p {
+            color: #626b78;
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .view-details-button {
+            width: 100%;
+            margin-top: 14px;
+            padding: 11px 15px;
+            border: 0;
+            border-radius: 9px;
+            background: #173b70;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .view-details-button:hover {
+            background: #102d55;
+            transform: translateY(-1px);
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .card-action-button {
+            min-height: 42px;
+            padding: 9px 10px;
+            border: 1px solid #173b70;
+            border-radius: 9px;
+            background: #173b70;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .card-action-button:hover { background: #102d55; }
+        .card-action-button.secondary { background: #ffffff; color: #173b70; }
+        .card-action-button.secondary:hover { background: #eef5ff; }
+        .card-action-button.saved { background: #eaf7f6; border-color: #c7ebe7; color: #087c77; }
+        .card-action-button:disabled { cursor: wait; opacity: .65; }
+        .application-state { display: inline-flex; align-items: center; border-radius: 999px; padding: 7px 10px; background: #fff5e8; color: #a85c06; font-size: 12px; font-weight: 800; }
+
+        .recommendation-section { background: #f0f7fb; }
+        .recommendation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+        .recommendation-card { background: #fff; padding: 21px; border: 1px solid #e0e9f0; border-radius: 14px; }
+        .recommendation-card h3 { color: #173b70; margin: 8px 0; }
+        .recommendation-card p { margin: 7px 0; color: #64748b; font-size: 14px; line-height: 1.5; }
+        .recommendation-notice { margin: 0 auto 20px; max-width: 1050px; color: #64748b; }
+        .recommendation-empty { padding: 24px; background: #fff; border: 1px solid #e6e9ef; border-radius: 12px; color: #64748b; text-align: center; }
+        .action-error { margin: 12px 0 0; color: #a33b33; font-size: 13px; line-height: 1.5; }
+
+        .action-overlay { position: fixed; inset: 0; z-index: 1100; display: grid; place-items: center; padding: 20px; background: rgba(15,29,50,.62); }
+        .action-overlay[hidden] { display: none; }
+        .action-dialog { width: min(620px, 100%); max-height: min(86vh, 760px); overflow-y: auto; padding: 25px; border-radius: 16px; background: #fff; box-shadow: 0 24px 70px rgba(10,30,60,.28); }
+        .action-dialog h2 { margin: 0; color: #173b70; }
+        .action-dialog p { color: #64748b; line-height: 1.55; }
+        .action-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 14px; }
+        .action-dialog-close { flex: 0 0 auto; padding: 8px 12px; border: 1px solid #d8dee8; border-radius: 8px; background: white; color: #173b70; font-weight: 700; cursor: pointer; }
+        .eligibility-result { padding: 13px 15px; border-radius: 10px; margin: 12px 0; font-weight: 700; }
+        .eligibility-result.eligible { background: #eaf7f0; color: #18754b; }
+        .eligibility-result.ineligible { background: #fff0ee; color: #b42318; }
+        .criteria-list { display: grid; gap: 9px; margin-top: 12px; }
+        .criteria-item { padding: 11px 13px; border: 1px solid #e6e9ef; border-radius: 9px; }
+        .criteria-item strong { display: block; color: #334155; font-size: 13px; }
+        .criteria-item span { display: block; margin-top: 4px; color: #64748b; font-size: 13px; line-height: 1.5; }
+        .toast { position: fixed; z-index: 1200; right: 20px; bottom: 20px; max-width: min(440px, calc(100vw - 40px)); padding: 13px 17px; border-radius: 10px; background: #173b70; color: #fff; box-shadow: 0 8px 24px #17203333; font-size: 14px; }
+        .toast.error { background: #b42318; }
+        .toast[hidden] { display: none; }
+
+        .view-details-button:focus-visible,
+        .details-close:focus-visible {
+            outline: 3px solid rgba(22, 166, 160, 0.45);
+            outline-offset: 2px;
+        }
+
+        .details-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: rgba(15, 29, 50, 0.62);
+        }
+
+        .details-overlay[hidden] {
+            display: none;
+        }
+
+        .details-description[hidden],
+        .category-badge[hidden] {
+            display: none;
+        }
+
+        .details-dialog {
+            width: min(720px, 100%);
+            max-height: min(88vh, 820px);
+            overflow-y: auto;
+            padding: 30px;
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 24px 70px rgba(10, 30, 60, 0.28);
+        }
+
+        .details-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .details-header h2 {
+            margin: 0 0 12px;
+            color: #173b70;
+            font-size: 27px;
+            line-height: 1.25;
+        }
+
+        .details-close {
+            flex: 0 0 auto;
+            min-width: 88px;
+            padding: 10px 15px;
+            border: 1px solid #d8dee8;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #173b70;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .details-close:hover {
+            background: #f5f7fb;
+        }
+
+        .details-description {
+            margin: 0 0 22px;
+            padding: 16px 18px;
+            border-left: 4px solid #16a6a0;
+            border-radius: 0 10px 10px 0;
+            background: #f2fbfa;
+            color: #475569;
+            line-height: 1.65;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .detail-item {
+            min-width: 0;
+            padding: 14px 16px;
+            border: 1px solid #e6e9ef;
+            border-radius: 11px;
+            background: #ffffff;
+        }
+
+        .detail-item dt {
+            margin-bottom: 6px;
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .detail-item dd {
+            margin: 0;
+            color: #172033;
+            font-size: 15px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .loading {
+            text-align: center;
+            color: #64748b;
+            grid-column: 1 / -1;
+            padding: 30px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #173b70;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 55px 7%;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-card {
+                width: 100%;
+            }
+
+            .section {
+                padding: 48px 5%;
+            }
+
+            .discovery-tools {
+                padding: 18px;
+            }
+
+            .filter-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 460px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            #resultCount {
+                text-align: left;
+            }
+
+            .details-overlay {
+                align-items: end;
+                padding: 0;
+            }
+
+            .details-dialog {
+                width: 100%;
+                max-height: 92vh;
+                padding: 22px 18px;
+                border-radius: 18px 18px 0 0;
+            }
+
+            .details-header h2 {
+                font-size: 22px;
+            }
+
+            .details-header {
+                gap: 12px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        /* Phase 3G: shared accessibility and narrow-screen refinements */
+        /* Focus ring styling is shared from theme.css. */
+        button, a { -webkit-tap-highlight-color: transparent; }
+        button { touch-action: manipulation; }
+        .details-dialog { overflow-wrap: anywhere; }
+        @media (max-width: 360px) {
+            nav { padding-left: 4%; padding-right: 4%; }
+            nav a { margin-left: 5px; margin-right: 5px; }
+            .hero h1 { font-size: 32px; }
+            .hero { padding-left: 5%; padding-right: 5%; }
+            .discovery-tools { padding: 14px; }
+        }
+        /* Reduced-motion handling is shared from theme.css. */</style>
+
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js" defer></script>
+  <script src="api-config.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#scholarships">Skip to scholarship listings</a>
+
+    <!-- Navigation -->
+    <nav>
+
+        <div class="logo">
+            Scholar<span>Sync</span>
+        </div>
+
+        <div id="publicNavigation">
+            <a href="index.html">Home</a>
+            <a href="#scholarships">Scholarships</a>
+            <a href="auth.html?mode=login">Student Login</a>
+            <a href="auth.html?mode=register">Register</a>
+            <span id="studentGreeting" hidden></span>
+            <a id="studentRecommendationsLink" href="#recommendationsSection" hidden>Recommended</a>
+            <a id="studentAccountLink" href="student.html" hidden>My account</a>
+            <button id="studentLogoutButton" type="button" hidden>Log out</button>
+            <a href="admin.html">Admin Login</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <span class="eyebrow">Scholarship discovery for students</span>
+
+            <h1>
+                Find Scholarships.<br>
+                <span>Build Your Future.</span>
+            </h1>
+
+            <p>
+                ScholarSync brings scholarship opportunities together
+                in one simple platform, helping students discover,
+                understand and manage opportunities.
+            </p>
+
+            <div class="hero-actions">
+
+                <button onclick="scrollToScholarships()">
+                Explore Scholarships
+            </button>
+            </div>
+
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <h3>🎓 ScholarSync</h3>
+
+            <p>✓ Centralized scholarship information</p>
+            <p>✓ Eligibility-based discovery</p>
+            <p>✓ Deadline tracking</p>
+            <p>✓ Application management</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Scholarship Section -->
+    <section class="section" id="scholarships">
+
+        <div class="section-title">
+
+            <span class="eyebrow">Scholarship catalog</span>
+
+            <h2>Available Scholarships</h2>
+
+            <p>
+                Explore opportunities available through ScholarSync
+            </p>
+
+        </div>
+
+        <div class="discovery-tools" aria-label="Scholarship search and filters">
+            <div class="search-wrap">
+                <label for="searchInput">Search scholarships</label>
+                <input type="search" id="searchInput" placeholder="Search by scholarship name or provider...">
+            </div>
+
+            <div class="filter-panel"><div class="filter-panel-head"><h3 class="filter-title">Refine results</h3><p class="filter-hint">All filters are optional - results update as you type.</p></div>
+
+            <div class="filter-grid">
+                <div class="filter-field">
+                    <label for="categoryFilter">Scholarship category</label>
+                    <select id="categoryFilter"><option value="">All categories</option></select>
+                </div>
+                <div class="filter-field">
+                    <label for="courseFilter">Applicant course</label>
+                    <select id="courseFilter"><option value="">Any course</option></select>
+                </div>
+                <div class="filter-field">
+                    <label for="studentCategoryFilter">Applicant category</label>
+                    <select id="studentCategoryFilter"><option value="">Any category</option></select>
+                </div>
+                <div class="filter-field">
+                    <label for="genderFilter">Applicant gender</label>
+                    <select id="genderFilter"><option value="">Any gender</option></select>
+                </div>
+                <div class="filter-field">
+                    <label for="minimumAmountFilter">Minimum award (₹)</label>
+                    <input type="number" id="minimumAmountFilter" min="0" step="1000" placeholder="No minimum">
+                </div>
+                <div class="filter-field">
+                    <label for="maximumAmountFilter">Maximum award (₹)</label>
+                    <input type="number" id="maximumAmountFilter" min="0" step="1000" placeholder="No maximum">
+                </div>
+                <div class="filter-field">
+                    <label for="minimumDeadlineFilter">Deadline from</label>
+                    <input type="date" id="minimumDeadlineFilter">
+                </div>
+                <div class="filter-field">
+                    <label for="maximumDeadlineFilter">Deadline to</label>
+                    <input type="date" id="maximumDeadlineFilter">
+                </div>
+                <div class="filter-field">
+                    <label for="cgpaFilter">Your CGPA (0–10)</label>
+                    <input type="number" id="cgpaFilter" min="0" max="10" step="0.1" placeholder="Any CGPA">
+                </div>
+            </div>
+            </div>
+
+
+            <div class="filter-actions">
+                <button type="button" id="clearFiltersButton">Clear Filters</button>
+                <p id="resultCount" aria-live="polite">Loading scholarships...</p>
+            </div>
+        </div>
+
+
+        <div id="scholarshipContainer">
+
+            <div class="loading">
+                Loading scholarships...
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="section recommendation-section" id="recommendationsSection" hidden>
+        <div class="section-title">
+            <h2>Recommended for You</h2>
+            <p>Opportunities matched using your profile and the scholarship eligibility rules.</p>
+        </div>
+        <p id="recommendationNotice" class="recommendation-notice" aria-live="polite"></p>
+        <div id="recommendationContainer" class="recommendation-grid">
+            <div class="loading">Loading your recommendations...</div>
+        </div>
+    </section>
+
+    <div id="detailsModal" class="details-overlay" hidden>
+        <section class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="detailsTitle" tabindex="-1">
+            <div class="details-header">
+                <div>
+                    <span id="detailsCategory" class="category-badge"></span>
+                    <h2 id="detailsTitle"></h2>
+                </div>
+                <button type="button" id="closeDetailsButton" class="details-close" aria-label="Close scholarship details">Close</button>
+            </div>
+            <p id="detailsDescription" class="details-description" hidden></p>
+            <h3 class="details-section-title">Scholarship information and eligibility rules</h3>
+
+            <dl id="detailsGrid" class="details-grid"></dl>
+            <div id="detailsDeadlineNotice" class="recommendation-notice"></div>
+            <h3 class="details-section-title">Next steps</h3>
+
+            <div id="detailsActions" class="card-actions"></div>
+            <p id="detailsActionMessage" class="action-error" aria-live="polite"></p>
+        </section>
+    </div>
+
+    <div id="authPromptModal" class="action-overlay" hidden>
+        <section class="action-dialog" role="dialog" aria-modal="true" aria-labelledby="authPromptTitle">
+            <div class="action-dialog-header"><h2 id="authPromptTitle">Sign in to continue</h2><button class="action-dialog-close" type="button" data-close-modal="authPromptModal">Close</button></div>
+            <p>Sign in or create a student account to save scholarships, check your eligibility, and apply.</p>
+            <div class="card-actions"><a id="promptLoginLink" class="card-action-button" href="auth.html?mode=login">Student Login</a><a id="promptRegisterLink" class="card-action-button secondary" href="auth.html?mode=register">Create Account</a></div>
+        </section>
+    </div>
+
+    <div id="eligibilityModal" class="action-overlay" hidden>
+        <section class="action-dialog" role="dialog" aria-modal="true" aria-labelledby="eligibilityTitle">
+            <div class="action-dialog-header"><h2 id="eligibilityTitle">Eligibility check</h2><button class="action-dialog-close" type="button" data-close-modal="eligibilityModal">Close</button></div>
+            <div id="eligibilityContent" class="loading" aria-live="polite" aria-atomic="true">Checking the listed criteria…</div>
+            <div class="eligibility-actions"><button class="card-action-button secondary" type="button" data-close-modal="eligibilityModal">Back to scholarship details</button></div>
+        </section>
+    </div>
+
+    <div id="applicationModal" class="action-overlay" hidden>
+        <section class="action-dialog" role="dialog" aria-modal="true" aria-labelledby="applicationTitle">
+            <div class="action-dialog-header"><h2 id="applicationTitle">Application</h2><button class="action-dialog-close" type="button" data-close-modal="applicationModal">Close</button></div>
+            <div id="applicationContent"></div>
+        </section>
+    </div>
+
+    <div id="discoveryToast" class="toast" role="status" aria-live="polite" hidden></div>
+
+
+    <!-- Footer -->
+    <footer>
+
+        © 2026 ScholarSync — A Smart Scholarship Management System
+
+    </footer>
+
+
+    <script>
+
+        let scholarships = [];
+        const studentTokenKey = "scholarsyncStudentToken";
+        const filterStorageKey = "scholarsyncScholarshipFilters";
+        let student = null;
+        let studentAuthenticated = false;
+        let savedScholarshipIds = new Set();
+        let applicationByScholarshipId = new Map();
+        let applicationsLoaded = false;
+        let applicationStateError = null;
+        let selectedScholarship = null;
+        let toastTimeout;
+
+        const filterIds = [
+            "searchInput",
+            "categoryFilter",
+            "courseFilter",
+            "studentCategoryFilter",
+            "genderFilter",
+            "minimumAmountFilter",
+            "maximumAmountFilter",
+            "minimumDeadlineFilter",
+            "maximumDeadlineFilter",
+            "cgpaFilter"
+        ];
+
+        const moneyFormatter = new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0
+        });
+
+        function escapeHtml(value) {
+            return String(value ?? "").replace(/[&<>\"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                "\"": "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        let detailsReturnFocus = null;
+
+        function scholarshipId(scholarship) {
+            return scholarship && (scholarship.id ?? scholarship.scholarship_id);
+        }
+
+        function getStudentToken() {
+            return sessionStorage.getItem(studentTokenKey);
+        }
+
+        async function studentApi(path, options = {}) {
+            const token = getStudentToken();
+            if (!token) throw new Error("Please sign in to use this feature.");
+            let response;
+            try {
+                response = await fetch(`${window.SCHOLARSYNC_API_BASE}${path}`, {
+                    ...options,
+                    headers: {
+                        ...(options.body ? { "Content-Type": "application/json" } : {}),
+                        Authorization: `Bearer ${token}`,
+                        ...(options.headers || {})
+                    }
+                });
+            } catch {
+                throw new Error("ScholarSync could not reach the backend. Check that it is running and try again.");
+            }
+            let data = {};
+            try { data = await response.json(); } catch {}
+            if (response.status === 401) {
+                studentAuthenticated = false;
+                student = null;
+                sessionStorage.removeItem(studentTokenKey);
+                updateStudentNavigation();
+                const error = new Error("Your session expired. Please sign in again.");
+                error.status = response.status;
+                throw error;
+            }
+            if (!response.ok) {
+                const error = new Error(data.message || "ScholarSync could not complete that request.");
+                error.status = response.status;
+                error.data = data;
+                throw error;
+            }
+            return data;
+        }
+
+        function showDiscoveryToast(message, isError = false) {
+            const toast = document.getElementById("discoveryToast");
+            toast.textContent = message;
+            toast.classList.toggle("error", isError);
+            toast.hidden = false;
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => { toast.hidden = true; }, 3800);
+        }
+
+        function rememberCurrentFilters() {
+            const filters = Object.fromEntries(filterIds.map(id => [id, document.getElementById(id).value]));
+            sessionStorage.setItem(filterStorageKey, JSON.stringify(filters));
+        }
+
+        function restoreFilters() {
+            let filters;
+            try { filters = JSON.parse(sessionStorage.getItem(filterStorageKey) || "{}"); } catch { filters = {}; }
+            filterIds.forEach(id => {
+                const field = document.getElementById(id);
+                if (Object.prototype.hasOwnProperty.call(filters, id) &&
+                    (field.tagName !== "SELECT" || Array.from(field.options).some(option => option.value === filters[id]))) {
+                    field.value = filters[id];
+                }
+            });
+        }
+
+        function currentReturnTarget() {
+            const path = window.location.pathname.startsWith("/") ? window.location.pathname : "index.html";
+            return `${path}${window.location.search}${window.location.hash}`;
+        }
+
+        function showLoginPrompt(action) {
+            rememberCurrentFilters();
+            const message = action === "save" ? "Sign in to save this scholarship to your account."
+                : action === "eligibility" ? "Sign in so ScholarSync can check this scholarship against your profile."
+                    : "Sign in to submit and track a scholarship application.";
+            document.getElementById("authPromptTitle").textContent = "Student sign-in required";
+            document.querySelector("#authPromptModal p").textContent = message;
+            const returnTo = encodeURIComponent(currentReturnTarget());
+            document.getElementById("promptLoginLink").href = `auth.html?mode=login&return=${returnTo}`;
+            document.getElementById("promptRegisterLink").href = `auth.html?mode=register&return=${returnTo}`;
+            openActionModal("authPromptModal");
+        }
+
+        const actionModalReturnFocus = new Map();
+
+        function openActionModal(id) {
+            const modal = document.getElementById(id);
+            actionModalReturnFocus.set(id, document.activeElement);
+            modal.hidden = false;
+            document.body.classList.add("modal-open");
+            const focusable = modal.querySelector("button, a");
+            if (focusable) focusable.focus();
+        }
+
+        function closeActionModal(id) {
+            document.getElementById(id).hidden = true;
+            if (document.querySelectorAll(".action-overlay:not([hidden])").length === 0 &&
+                document.getElementById("detailsModal").hidden) {
+                document.body.classList.remove("modal-open");
+            }
+            const returnFocus = actionModalReturnFocus.get(id);
+            if (returnFocus && returnFocus.isConnected) returnFocus.focus();
+            actionModalReturnFocus.delete(id);
+        }
+
+        document.querySelectorAll("[data-close-modal]").forEach(button => {
+            button.addEventListener("click", () => closeActionModal(button.dataset.closeModal));
+        });
+        document.querySelectorAll(".action-overlay").forEach(modal => {
+            modal.addEventListener("click", event => {
+                if (event.target === modal) closeActionModal(modal.id);
+            });
+        });
+
+        async function refreshSavedScholarshipState() {
+            const data = await studentApi("/saved-scholarships");
+            savedScholarshipIds = new Set((data.saved_scholarships || []).map(item => Number(item.scholarship_id)));
+        }
+
+        async function refreshApplications() {
+            const data = await studentApi("/applications");
+            applicationByScholarshipId = new Map((data.applications || []).map(application => [
+                Number(application.scholarship_id), application
+            ]));
+            applicationsLoaded = true;
+            applicationStateError = null;
+        }
+
+        function makeScholarshipAction(label, action, id, secondary = false) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `card-action-button${secondary ? " secondary" : ""}`;
+            button.textContent = label;
+            button.dataset.action = action;
+            button.dataset.scholarshipId = id;
+            return button;
+        }
+
+        function bindScholarshipActions(root) {
+            root.querySelectorAll('[data-action="save"]').forEach(button => {
+                button.addEventListener("click", () => toggleScholarshipSaved(button.dataset.scholarshipId, button));
+            });
+            root.querySelectorAll('[data-action="view"]').forEach(button => {
+                button.addEventListener("click", () => openScholarshipDetails(button.dataset.scholarshipId, button));
+            });
+        }
+
+        async function toggleScholarshipSaved(id, button) {
+            if (!studentAuthenticated) { showLoginPrompt("save"); return; }
+            const wasSaved = savedScholarshipIds.has(Number(id));
+            if (button) button.disabled = true;
+            try {
+                const result = await studentApi(`/saved-scholarships/${encodeURIComponent(id)}`, {
+                    method: wasSaved ? "DELETE" : "POST"
+                });
+                if (result.saved === false) savedScholarshipIds.delete(Number(id));
+                else savedScholarshipIds.add(Number(id));
+                showDiscoveryToast(result.message || (wasSaved ? "Scholarship removed from saved list." : "Scholarship saved."));
+                if (scholarships.length) applyFilters();
+                if (!document.getElementById("detailsModal").hidden && selectedScholarship) renderDetailsActions(selectedScholarship);
+                if (studentAuthenticated) await refreshSavedScholarshipState();
+                if (studentAuthenticated) await loadRecommendations();
+            } catch (error) {
+                showDiscoveryToast(error.message, true);
+                if (!studentAuthenticated) showLoginPrompt("save");
+            } finally {
+                if (button) button.disabled = false;
+            }
+        }
+
+        function renderRecommendationCards(data) {
+            const container = document.getElementById("recommendationContainer");
+            const notice = document.getElementById("recommendationNotice");
+            notice.textContent = data.message || "";
+            if (data.profile_complete === false) {
+                const fields = [...(data.missing_fields || []), ...(data.invalid_fields || [])].map(field => field.replaceAll("_", " "));
+                notice.textContent = `${data.message || "Complete your profile to get recommendations."}${fields.length ? ` Details to review: ${fields.join(", ")}.` : ""}`;
+                container.innerHTML = '<div class="recommendation-empty">Recommendations will appear after the required profile details are complete. <a href="student.html">Review profile</a></div>';
+                return;
+            }
+            if (!Array.isArray(data.recommendations) || data.recommendations.length === 0) {
+                container.innerHTML = `<div class="recommendation-empty">${data.message ? escapeHtml(data.message) : "No eligible scholarships are available right now."}</div>`;
+                return;
+            }
+            container.replaceChildren();
+            data.recommendations.forEach(scholarship => {
+                const id = scholarshipId(scholarship);
+                const card = document.createElement("article");
+                card.className = "recommendation-card";
+                const badge = document.createElement("span");
+                badge.className = "category-badge";
+                badge.textContent = scholarship.category || "Scholarship";
+                const title = document.createElement("h3");
+                title.textContent = scholarship.name || "Scholarship";
+                const provider = document.createElement("p");
+                provider.textContent = `${scholarship.provider || ""} · ${moneyFormatter.format(Number(scholarship.amount) || 0)}`;
+                const deadline = document.createElement("p");
+                deadline.textContent = `Deadline: ${formatDeadline(scholarship.deadline)}`;
+                const explanation = document.createElement("p");
+                const hasExplanation = Array.isArray(scholarship.match_reasons) && scholarship.match_reasons.length > 0;
+                explanation.textContent = hasExplanation ? scholarship.match_reasons.join(" ") : "";
+                const actions = document.createElement("div");
+                actions.className = "card-actions";
+                const saved = savedScholarshipIds.has(Number(id));
+                actions.append(
+                    makeScholarshipAction(saved ? "✓ Saved · Unsave" : "Save Scholarship", "save", id, saved),
+                    makeScholarshipAction("View Details", "view", id, true)
+                );
+                card.append(badge, title, provider, deadline);
+                if (hasExplanation) card.appendChild(explanation);
+                card.appendChild(actions);
+                container.appendChild(card);
+            });
+            bindScholarshipActions(container);
+        }
+
+        async function loadRecommendations() {
+            if (!studentAuthenticated) return;
+            const container = document.getElementById("recommendationContainer");
+            container.innerHTML = '<div class="loading">Loading your recommendations...</div>';
+            try {
+                const data = await studentApi("/recommendations");
+                renderRecommendationCards(data);
+            } catch (error) {
+                container.innerHTML = `<div class="recommendation-empty">${escapeHtml(error.message)} <button id="retryRecommendations" class="action-dialog-close" type="button">Try again</button></div>`;
+                document.getElementById("retryRecommendations").addEventListener("click", loadRecommendations);
+            }
+        }
+
+        function renderDetailsActions(scholarship) {
+            const id = scholarshipId(scholarship);
+            const actions = document.getElementById("detailsActions");
+            const message = document.getElementById("detailsActionMessage");
+            const deadlineNotice = document.getElementById("detailsDeadlineNotice");
+            actions.replaceChildren();
+            message.textContent = "";
+            const deadline = typeof scholarship.deadline === "string" && /^\d{4}-\d{2}-\d{2}$/.test(scholarship.deadline)
+                ? scholarship.deadline : null;
+            const isExpired = deadline && deadline < new Date().toISOString().slice(0, 10);
+            deadlineNotice.textContent = isExpired
+                ? "This deadline has passed. The current application service still accepts submissions; check the scholarship terms before continuing."
+                : "";
+            const saved = studentAuthenticated && savedScholarshipIds.has(Number(id));
+            const save = makeScholarshipAction(saved ? "✓ Saved · Unsave" : "Save Scholarship", "save", id, saved);
+            save.addEventListener("click", () => toggleScholarshipSaved(id, save));
+            const eligibility = makeScholarshipAction("Check My Eligibility", "eligibility", id, true);
+            eligibility.addEventListener("click", () => checkScholarshipEligibility(id));
+            actions.append(save, eligibility);
+
+            if (!studentAuthenticated) {
+                const apply = makeScholarshipAction("Apply Now", "apply", id);
+                apply.addEventListener("click", () => applyForScholarship(id, apply));
+                actions.appendChild(apply);
+                return;
+            }
+
+            if (!applicationsLoaded) {
+                const status = document.createElement("p");
+                status.className = "recommendation-notice";
+                status.textContent = applicationStateError || "Checking your application status…";
+                actions.appendChild(status);
+                if (applicationStateError) {
+                    const retry = makeScholarshipAction("Retry status check", "retry-applications", id, true);
+                    retry.addEventListener("click", async () => {
+                        retry.disabled = true;
+                        try { await refreshApplications(); renderDetailsActions(scholarship); }
+                        catch (error) { applicationStateError = error.message; showDiscoveryToast(error.message, true); }
+                        finally { retry.disabled = false; }
+                    });
+                    actions.appendChild(retry);
+                }
+                return;
+            }
+
+            const application = applicationByScholarshipId.get(Number(id));
+            if (application) {
+                const status = document.createElement("span");
+                status.className = "application-state";
+                status.textContent = `Applied · ${application.status}`;
+                const view = makeScholarshipAction("View Application", "application", id, true);
+                view.addEventListener("click", () => showApplicationDetails(application.application_id));
+                actions.append(status, view);
+            } else {
+                const apply = makeScholarshipAction("Apply Now", "apply", id);
+                apply.addEventListener("click", () => applyForScholarship(id, apply));
+                actions.appendChild(apply);
+            }
+        }
+
+        async function checkScholarshipEligibility(id) {
+            if (!studentAuthenticated) { showLoginPrompt("eligibility"); return; }
+            const content = document.getElementById("eligibilityContent");
+            content.className = "loading";
+            content.textContent = "Checking the listed criteria…";
+            openActionModal("eligibilityModal");
+            try {
+                const result = await studentApi(`/scholarships/${encodeURIComponent(id)}/eligibility`);
+                const reasons = Array.isArray(result.reasons) ? result.reasons : [];
+                const criteria = Array.isArray(result.criteria) ? result.criteria : [];
+                let html = "";
+                if (result.profile_complete === false) {
+                    const needed = [...(result.missing_fields || []), ...(result.invalid_fields || [])].map(field => field.replaceAll("_", " "));
+                    html += `<div class="eligibility-result ineligible">Complete or correct your profile first.</div><p>${escapeHtml(needed.length ? `Review: ${needed.join(", ")}.` : reasons.join(" "))}</p>`;
+                } else {
+                    html += `<div class="eligibility-result ${result.eligible ? "eligible" : "ineligible"}">${result.eligible ? "You meet the listed eligibility requirements." : "You do not meet all listed eligibility requirements."}</div>`;
+                    if (result.deadline_status) html += `<p>Deadline status: ${escapeHtml(result.deadline_status)}.</p>`;
+                }
+                if (criteria.length) {
+                    html += `<div class="criteria-list">${criteria.map(item => `<div class="criteria-item"><strong>${escapeHtml(String(item.field || "Eligibility rule").replaceAll("_", " "))}: ${escapeHtml(item.requirement)}</strong><span>${escapeHtml(item.explanation)}${item.applies ? ` ${item.passed ? "Passed" : "Not met"}.` : ""}</span></div>`).join("")}</div>`;
+                }
+                if (reasons.length) html += `<p>${reasons.map(escapeHtml).join(" ")}</p>`;
+                content.className = "";
+                content.innerHTML = html || '<p>No eligibility details were returned.</p>';
+            } catch (error) {
+                content.className = "action-error";
+                content.textContent = error.message;
+                if (!studentAuthenticated) showLoginPrompt("eligibility");
+            }
+        }
+
+        async function refreshApplicationForScholarship(id) {
+            const data = await studentApi("/applications");
+            applicationByScholarshipId = new Map((data.applications || []).map(application => [Number(application.scholarship_id), application]));
+            applicationsLoaded = true;
+            applicationStateError = null;
+            return applicationByScholarshipId.get(Number(id)) || null;
+        }
+
+        async function applyForScholarship(id, button) {
+            if (!studentAuthenticated) { showLoginPrompt("apply"); return; }
+            if (button) button.disabled = true;
+            try {
+                const existing = await refreshApplicationForScholarship(id);
+                if (existing) {
+                    renderDetailsActions(selectedScholarship || scholarships.find(item => Number(scholarshipId(item)) === Number(id)));
+                    showDiscoveryToast("You have already applied. Your current status is shown here.");
+                    await showApplicationDetails(existing.application_id);
+                    return;
+                }
+                const result = await studentApi("/applications", {
+                    method: "POST",
+                    body: JSON.stringify({ scholarship_id: Number(id) })
+                });
+                applicationByScholarshipId.set(Number(id), result.application);
+                applicationsLoaded = true;
+                if (selectedScholarship) renderDetailsActions(selectedScholarship);
+                showDiscoveryToast(result.message || "Application submitted successfully.");
+                await showApplicationDetails(result.application.application_id);
+            } catch (error) {
+                if (error.status === 409) {
+                    try {
+                        const existing = await refreshApplicationForScholarship(id);
+                        if (existing) {
+                            if (selectedScholarship) renderDetailsActions(selectedScholarship);
+                            await showApplicationDetails(existing.application_id);
+                            showDiscoveryToast("You have already applied. Your current application is shown.");
+                            return;
+                        }
+                    } catch {}
+                }
+                showDiscoveryToast(error.message, true);
+                if (!studentAuthenticated) showLoginPrompt("apply");
+            } finally {
+                if (button) button.disabled = false;
+            }
+        }
+
+        async function showApplicationDetails(applicationId) {
+            const content = document.getElementById("applicationContent");
+            content.className = "loading";
+            content.textContent = "Loading your application…";
+            openActionModal("applicationModal");
+            try {
+                const data = await studentApi(`/applications/${encodeURIComponent(applicationId)}`);
+                const application = data.application;
+                document.getElementById("applicationTitle").textContent = application.scholarship_name || "Application details";
+                content.className = "details-grid";
+                content.innerHTML = [["Status", application.status], ["Applied on", application.applied_on], ["Scholarship", application.scholarship_name], ["Deadline", application.deadline], ["Deadline status", application.deadline_status], ["Days remaining", application.days_remaining === null ? "Unavailable" : application.days_remaining]]
+                    .filter(([, value]) => value !== undefined && value !== null && value !== "")
+                    .map(([label, value]) => `<div class="detail-item"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("");
+            } catch (error) {
+                content.className = "action-error";
+                content.textContent = error.message;
+                if (!studentAuthenticated) showLoginPrompt("apply");
+            }
+        }
+
+        async function updateStudentNavigation() {
+            const showSignedOutNavigation = () => {
+                studentAuthenticated = false;
+                student = null;
+                savedScholarshipIds.clear();
+                applicationByScholarshipId.clear();
+                applicationsLoaded = false;
+                applicationStateError = null;
+                document.querySelectorAll('#publicNavigation a[href^="auth.html"]').forEach(link => link.hidden = false);
+                document.getElementById("studentGreeting").hidden = true;
+                document.getElementById("studentRecommendationsLink").hidden = true;
+                document.getElementById("studentAccountLink").hidden = true;
+                document.getElementById("studentLogoutButton").hidden = true;
+                document.getElementById("recommendationsSection").hidden = true;
+            };
+            const token = getStudentToken();
+            if (!token) { showSignedOutNavigation(); return; }
+            try {
+                let response;
+                try {
+                    response = await fetch(`${window.SCHOLARSYNC_API_BASE}/auth/me`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                } catch {
+                    showSignedOutNavigation();
+                    showDiscoveryToast("Could not check your sign-in right now. Please check the backend connection.", true);
+                    return;
+                }
+                if (response.status === 401) {
+                    sessionStorage.removeItem(studentTokenKey);
+                    showSignedOutNavigation();
+                    return;
+                }
+                const data = await response.json();
+                if (!response.ok || !data.success || !data.user) {
+                    showSignedOutNavigation();
+                    showDiscoveryToast(data.message || "Could not load your account right now.", true);
+                    return;
+                }
+                studentAuthenticated = true;
+                student = data.user;
+                document.querySelectorAll('#publicNavigation a[href^="auth.html"]').forEach(link => link.hidden = true);
+                const greeting = document.getElementById("studentGreeting");
+                greeting.textContent = `Hi, ${data.user.name}`;
+                greeting.hidden = false;
+                document.getElementById("studentRecommendationsLink").hidden = false;
+                document.getElementById("studentAccountLink").hidden = false;
+                document.getElementById("studentLogoutButton").hidden = false;
+                document.getElementById("recommendationsSection").hidden = false;
+                const results = await Promise.allSettled([refreshSavedScholarshipState(), refreshApplications()]);
+                if (results[0].status === "rejected") {
+                    console.error("Saved status could not be loaded:", results[0].reason);
+                    showDiscoveryToast("Your saved status could not be loaded. Try refreshing the page.", true);
+                }
+                if (results[1].status === "rejected") {
+                    applicationStateError = results[1].reason.message || "Application status could not be loaded.";
+                    console.error("Application status could not be loaded:", results[1].reason);
+                    showDiscoveryToast("Your application status could not be loaded. It will be checked again before you apply.", true);
+                }
+                if (scholarships.length) applyFilters();
+                if (!document.getElementById("detailsModal").hidden && selectedScholarship) renderDetailsActions(selectedScholarship);
+                await loadRecommendations();
+            } catch {
+                showSignedOutNavigation();
+                showDiscoveryToast("Could not load your account. Please try again.", true);
+            }
+        }
+
+        document.getElementById("studentLogoutButton").addEventListener("click", async () => {
+            const token = sessionStorage.getItem(studentTokenKey);
+            try {
+                if (token) await fetch(`${window.SCHOLARSYNC_API_BASE}/auth/logout`, {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+            } catch (error) {
+                console.error("Could not reach logout endpoint:", error);
+            }
+            sessionStorage.removeItem(studentTokenKey);
+            window.location.reload();
+        });
+
+
+        /* Load scholarships from Node.js backend */
+
+        async function loadScholarships() {
+
+            const container =
+                document.getElementById("scholarshipContainer");
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${window.SCHOLARSYNC_API_BASE}/scholarships`
+                    );
+
+                const data = await response.json();
+
+
+                if (!data.success) {
+
+                    throw new Error(
+                        "Unable to load scholarships"
+                    );
+
+                }
+
+
+                if (!Array.isArray(data.scholarships)) {
+                    throw new Error("Scholarship data was not returned as a list");
+                }
+
+                scholarships = data.scholarships;
+                populateFilters();
+                restoreFilters();
+                applyFilters();
+                const requestedScholarship = new URLSearchParams(window.location.search).get("scholarship_id");
+                if (requestedScholarship) openScholarshipDetails(requestedScholarship, null);
+
+
+            } catch (error) {
+
+                container.innerHTML = `
+                    <div class="loading">
+                        Unable to load scholarships.
+                    </div>
+                `;
+                document.getElementById("resultCount").textContent = "Scholarships could not be loaded.";
+
+                console.error(error);
+
+            }
+
+        }
+
+
+        /* Display scholarship cards */
+
+        function displayScholarships(list) {
+
+            const container =
+                document.getElementById(
+                    "scholarshipContainer"
+                );
+
+
+            container.replaceChildren();
+
+
+            if (list.length === 0) {
+
+                const emptyMessage = document.createElement("div");
+                emptyMessage.className = "loading";
+                emptyMessage.textContent = "No scholarships match your search and filters.";
+                container.appendChild(emptyMessage);
+
+                return;
+
+            }
+
+
+            list.forEach(scholarship => {
+
+                const card =
+                    document.createElement("div");
+
+
+                card.className =
+                    "scholarship-card";
+
+
+                const badge = document.createElement("span");
+                badge.className = "category-badge";
+                badge.textContent = scholarship.category || "Uncategorized";
+                card.appendChild(badge);
+
+                const title = document.createElement("h3");
+                title.textContent = scholarship.name || "Scholarship";
+                card.appendChild(title);
+
+                appendCardDetail(card, "Provider", scholarship.provider);
+                appendCardDetail(card, "Award", moneyFormatter.format(Number(scholarship.amount) || 0));
+                appendCardDetail(card, "Deadline", formatDeadline(scholarship.deadline));
+                appendCardDetail(card, "Eligible course", scholarship.eligible_course);
+                appendCardDetail(card, "Minimum CGPA", Number(scholarship.minimum_cgpa) > 0
+                    ? `${scholarship.minimum_cgpa} / 10`
+                    : "None listed");
+
+                const detailsButton = document.createElement("button");
+                detailsButton.type = "button";
+                detailsButton.className = "card-action-button secondary";
+                detailsButton.textContent = "View Details";
+                detailsButton.setAttribute("aria-label", `View details for ${scholarship.name || "scholarship"}`);
+                detailsButton.addEventListener("click", event => {
+                    openScholarshipDetails(scholarshipId(scholarship), event.currentTarget);
+                });
+                const id = scholarshipId(scholarship);
+                const saved = studentAuthenticated && savedScholarshipIds.has(Number(id));
+                const saveButton = document.createElement("button");
+                saveButton.type = "button";
+                saveButton.className = `card-action-button${saved ? " saved" : ""}`;
+                saveButton.textContent = saved ? "✓ Saved · Unsave" : "Save Scholarship";
+                saveButton.setAttribute("aria-label", `${saved ? "Unsave" : "Save"} ${scholarship.name || "scholarship"}`);
+                saveButton.addEventListener("click", () => toggleScholarshipSaved(id, saveButton));
+                const actions = document.createElement("div");
+                actions.className = "card-actions";
+                actions.append(saveButton, detailsButton);
+                card.appendChild(actions);
+
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        function appendCardDetail(card, label, value) {
+            const paragraph = document.createElement("p");
+            const strong = document.createElement("strong");
+            strong.textContent = `${label}: `;
+            paragraph.append(strong, document.createTextNode(value || "Not listed"));
+            card.appendChild(paragraph);
+        }
+
+        function formatDeadline(value) {
+            if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+                return value || "Not listed";
+            }
+            return new Intl.DateTimeFormat("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }).format(new Date(`${value}T00:00:00`));
+        }
+
+        function populateFilters() {
+            populateSelect("categoryFilter", uniqueValues("category"), "All categories");
+            populateSelect("courseFilter", uniqueValues("eligible_course"), "Any course");
+            populateSelect("studentCategoryFilter", uniqueValues("eligible_category", true), "Any category");
+            populateSelect("genderFilter", uniqueValues("eligible_gender"), "Any gender");
+        }
+
+        function uniqueValues(field, splitValues = false) {
+            const values = new Set();
+            scholarships.forEach(scholarship => {
+                const rawValue = String(scholarship[field] || "").trim();
+                const candidates = splitValues ? rawValue.split(",") : [rawValue];
+                candidates.forEach(candidate => {
+                    const value = candidate.trim();
+                    if (value && value.toLowerCase() !== "any" && value.toLowerCase() !== "unclassified") {
+                        values.add(value);
+                    }
+                });
+            });
+            return Array.from(values).sort((a, b) => a.localeCompare(b));
+        }
+
+        function populateSelect(id, values, defaultLabel) {
+            const select = document.getElementById(id);
+            select.replaceChildren();
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = defaultLabel;
+            select.appendChild(defaultOption);
+            values.forEach(value => {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        }
+
+        function displayValue(scholarship, field, format) {
+            if (!Object.prototype.hasOwnProperty.call(scholarship, field)) {
+                return null;
+            }
+            const rawValue = scholarship[field];
+            if (rawValue === null || rawValue === undefined || rawValue === "") {
+                return null;
+            }
+            return format ? format(rawValue) : String(rawValue);
+        }
+
+        function openScholarshipDetails(scholarshipId, trigger) {
+            const scholarship = scholarships.find(item => String(item.id ?? item.scholarship_id) === String(scholarshipId));
+            if (!scholarship) return;
+
+            selectedScholarship = scholarship;
+            detailsReturnFocus = trigger || null;
+            const title = document.getElementById("detailsTitle");
+            const category = document.getElementById("detailsCategory");
+            const description = document.getElementById("detailsDescription");
+            const grid = document.getElementById("detailsGrid");
+            const modal = document.getElementById("detailsModal");
+
+            title.textContent = scholarship.name || "Scholarship details";
+            category.textContent = scholarship.category || "Scholarship";
+            category.hidden = !scholarship.category;
+
+            const hasDescription = Object.prototype.hasOwnProperty.call(scholarship, "description") &&
+                scholarship.description !== null && scholarship.description !== "";
+            description.textContent = hasDescription ? scholarship.description : "";
+            description.hidden = !hasDescription;
+            grid.replaceChildren();
+
+            const details = [
+                ["Scholarship ID", "scholarship_id"],
+                ["Provider", "provider"],
+                ["Award amount", "amount", value => moneyFormatter.format(Number(value))],
+                ["Deadline", "deadline", formatDeadline],
+                ["Maximum family income", "minimum_income", value => {
+                    const income = Number(value);
+                    if (income < 0) return "Not specified";
+                    if (income === 0) return "No limit listed";
+                    return moneyFormatter.format(income);
+                }],
+                ["Eligible course", "eligible_course"],
+                ["Eligible student category", "eligible_category"],
+                ["Eligible state / UT", "eligible_state"],
+                ["Eligible gender", "eligible_gender"],
+                ["Disability requirement", "disability_required"],
+                ["Minimum CGPA", "minimum_cgpa", value => Number(value) > 0 ? `${value} / 10` : "No minimum listed"]
+            ];
+
+            details.forEach(([label, field, format]) => {
+                const value = displayValue(scholarship, field, format);
+                if (value === null) return;
+
+                const item = document.createElement("div");
+                item.className = "detail-item";
+                const term = document.createElement("dt");
+                term.textContent = label;
+                const definition = document.createElement("dd");
+                definition.textContent = value;
+                item.append(term, definition);
+                grid.appendChild(item);
+            });
+
+            modal.hidden = false;
+            document.body.classList.add("modal-open");
+            renderDetailsActions(scholarship);
+            document.getElementById("closeDetailsButton").focus();
+        }
+
+        function closeScholarshipDetails() {
+            const modal = document.getElementById("detailsModal");
+            if (modal.hidden) return;
+
+            modal.hidden = true;
+            selectedScholarship = null;
+            if (document.querySelectorAll(".action-overlay:not([hidden])").length === 0) {
+                document.body.classList.remove("modal-open");
+            }
+            if (detailsReturnFocus && detailsReturnFocus.isConnected) {
+                detailsReturnFocus.focus();
+            }
+            detailsReturnFocus = null;
+        }
+
+        document.getElementById("closeDetailsButton").addEventListener("click", closeScholarshipDetails);
+        document.getElementById("detailsModal").addEventListener("click", event => {
+            if (event.target === event.currentTarget) closeScholarshipDetails();
+        });
+        document.addEventListener("keydown", event => {
+            if (event.key !== "Escape") return;
+            const openAction = Array.from(document.querySelectorAll(".action-overlay:not([hidden])")).pop();
+            if (openAction) closeActionModal(openAction.id);
+            else closeScholarshipDetails();
+        });
+
+        function applyFilters() {
+            const value = id => document.getElementById(id).value.trim();
+            const search = value("searchInput").toLocaleLowerCase();
+            const category = value("categoryFilter").toLocaleLowerCase();
+            const course = value("courseFilter").toLocaleLowerCase();
+            const studentCategory = value("studentCategoryFilter").toLocaleLowerCase();
+            const gender = value("genderFilter").toLocaleLowerCase();
+            const minAmount = value("minimumAmountFilter");
+            const maxAmount = value("maximumAmountFilter");
+            const minDeadline = value("minimumDeadlineFilter");
+            const maxDeadline = value("maximumDeadlineFilter");
+            const cgpa = value("cgpaFilter");
+
+            const filtered = scholarships.filter(scholarship => {
+                const amount = Number(scholarship.amount);
+                const requiredCgpa = Number(scholarship.minimum_cgpa) || 0;
+                const eligibleCategories = String(scholarship.eligible_category || "Any")
+                    .split(",").map(item => item.trim().toLocaleLowerCase());
+                const matchesSearch = !search ||
+                    String(scholarship.name || "").toLocaleLowerCase().includes(search) ||
+                    String(scholarship.provider || "").toLocaleLowerCase().includes(search);
+                const matchesCourse = !course ||
+                    ["any", course].includes(String(scholarship.eligible_course || "Any").toLocaleLowerCase());
+                const matchesStudentCategory = !studentCategory ||
+                    eligibleCategories.includes("any") || eligibleCategories.includes(studentCategory);
+                const matchesGender = !gender ||
+                    ["any", gender].includes(String(scholarship.eligible_gender || "Any").toLocaleLowerCase());
+
+                return matchesSearch &&
+                    (!category || String(scholarship.category || "").toLocaleLowerCase() === category) &&
+                    matchesCourse && matchesStudentCategory && matchesGender &&
+                    (!minAmount || amount >= Number(minAmount)) &&
+                    (!maxAmount || amount <= Number(maxAmount)) &&
+                    (!minDeadline || String(scholarship.deadline || "") >= minDeadline) &&
+                    (!maxDeadline || String(scholarship.deadline || "") <= maxDeadline) &&
+                    (!cgpa || requiredCgpa <= Number(cgpa));
+            });
+
+            displayScholarships(filtered);
+            document.getElementById("resultCount").textContent =
+                `Showing ${filtered.length} of ${scholarships.length} scholarships`;
+        }
+
+        filterIds.forEach(id => {
+            document.getElementById(id).addEventListener("input", () => { rememberCurrentFilters(); applyFilters(); });
+            document.getElementById(id).addEventListener("change", () => { rememberCurrentFilters(); applyFilters(); });
+        });
+
+        document.getElementById("clearFiltersButton").addEventListener("click", () => {
+            filterIds.forEach(id => {
+                document.getElementById(id).value = "";
+            });
+            rememberCurrentFilters();
+            applyFilters();
+        });
+
+
+        /* Scroll to scholarship section */
+
+        function scrollToScholarships() {
+
+            document
+                .getElementById("scholarships")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+
+
+        /* Start application */
+
+        updateStudentNavigation();
+        loadScholarships();
+
+    </script>
+
+</body>
+
+</html>

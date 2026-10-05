@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student access | ScholarSync</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}.topbar{height:72px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e6e9ef}.brand{font-size:24px;font-weight:800;color:#173b70;text-decoration:none}.brand span{color:#16a6a0}.topbar a:last-child{color:#475569;text-decoration:none}.wrap{width:min(980px,92%);margin:45px auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:start}.intro{padding:28px 10px}.eyebrow{color:#07827d;text-transform:uppercase;font-size:12px;letter-spacing:.1em;font-weight:800}.intro h1{color:#173b70;font-size:38px;line-height:1.13;margin:12px 0}.intro p{color:#64748b;line-height:1.7}.benefit{margin-top:25px;padding:17px;background:#eef8f7;border-radius:12px;color:#246b67;line-height:1.55}.panel{background:#fff;border:1px solid #e6e9ef;border-radius:17px;padding:28px;box-shadow:0 12px 34px #173b7010}.tabs{display:flex;gap:8px;padding:5px;background:#f1f4f8;border-radius:10px;margin-bottom:23px}.tabs button{flex:1;border:0;border-radius:8px;background:transparent;color:#64748b;padding:11px;font-weight:700;cursor:pointer}.tabs button.active{background:#fff;color:#173b70;box-shadow:0 2px 8px #17203312}.panel h2{color:#173b70;margin:0 0 7px}.subtitle{color:#64748b;margin:0 0 20px;font-size:14px;line-height:1.5}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 13px}.field{display:grid;gap:7px;margin:0 0 14px}.field label{font-size:13px;font-weight:700;color:#334155}.field input,.field select{height:43px;border:1px solid #d8dee8;border-radius:9px;padding:9px 11px;font:inherit;background:#fff;color:#172033;min-width:0}.field input:focus,.field select:focus{outline:3px solid #16a6a026;border-color:#16a6a0}.wide{grid-column:1/-1}.button{width:100%;border:0;border-radius:9px;background:#173b70;color:#fff;padding:13px;font-weight:700;cursor:pointer}.button:hover{background:#102d55}.button:disabled{opacity:.65;cursor:wait}.message{min-height:22px;margin:12px 0 0;font-size:14px;line-height:1.5;color:#b42318}.message.success{color:#087c58}.hidden{display:none!important}.small{font-size:12px;color:#64748b;line-height:1.5;margin:10px 0 0}.footer{text-align:center;padding:22px;color:#64748b;font-size:13px}
+    @media(max-width:760px){.wrap{grid-template-columns:1fr;margin:24px auto;gap:10px}.intro{padding:12px 3px}.intro h1{font-size:31px}.benefit{margin-top:12px}.panel{padding:22px}}
+    @media(max-width:480px){.topbar{padding:0 5%;height:64px}.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+  
+    /* Phase 3G: keyboard, touch, and narrow-screen refinements */
+    /* Focus ring styling is shared from theme.css. */
+    button,a{-webkit-tap-highlight-color:transparent}button{touch-action:manipulation}
+    @media(max-width:360px){.topbar{padding:0 4%}.brand{font-size:21px}.panel{padding:18px}.intro h1{font-size:28px}.tabs button{padding:10px 6px;font-size:13px}}
+    /* Reduced-motion handling is shared from theme.css. */</style>
+
+  <link rel="stylesheet" href="theme.css">
+  <script src="theme.js" defer></script>
+  <script src="api-config.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to account form</a>
+  <header class="topbar"><a class="brand" href="index.html">Scholar<span>Sync</span></a><a href="index.html">Back to scholarships</a></header>
+  <main class="wrap" id="mainContent">
+    <section class="intro"><span class="eyebrow">Student portal</span><h1>Your scholarship journey, in sync.</h1><p>Create an account to keep your student profile and scholarship activity together. Already registered? Sign in to continue.</p><ul class="intro-points"><li>Check eligibility against every listed rule</li><li>Save scholarships and follow your applications</li><li>See deadline alerts before time runs out</li></ul><div class="benefit">Your profile helps ScholarSync explain which scholarship requirements you meet. You can update your details later.</div></section>
+    <section class="panel">
+      <div class="tabs" role="tablist" aria-label="Student account"><button id="loginTab" class="active" type="button" role="tab" aria-selected="true">Sign in</button><button id="registerTab" type="button" role="tab" aria-selected="false">Create account</button></div>
+      <form id="loginForm" novalidate>
+        <h2>Welcome back</h2><p class="subtitle">Sign in to your ScholarSync student account.</p>
+        <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" maxlength="99" required></div>
+        <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" maxlength="99" required></div>
+        <button id="loginButton" class="button" type="submit">Sign in</button><p id="loginMessage" class="message" role="status" aria-live="polite"></p>
+      </form>
+      <form id="registerForm" class="hidden" novalidate>
+        <h2>Create your student account</h2><p class="subtitle">Enter your details to register. All profile fields are required.</p>
+        <div class="form-grid">
+          <div class="field"><label for="name">Full name</label><input id="name" autocomplete="name" maxlength="99" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" maxlength="99" required></div>
+          <div class="field"><label for="course">Course</label><input id="course" placeholder="e.g. B.Tech CSE" maxlength="99" required></div>
+          <div class="field"><label for="category">Student category</label><input id="category" placeholder="e.g. General" maxlength="29" required></div>
+          <div class="field"><label for="state">State</label><input id="state" autocomplete="address-level1" maxlength="59" required></div>
+          <div class="field"><label for="gender">Gender</label><input id="gender" maxlength="19" required></div>
+          <div class="field"><label for="annualIncome">Annual family income (₹)</label><input id="annualIncome" type="number" min="0" step="any" required></div>
+          <div class="field"><label for="cgpa">CGPA (0–10)</label><input id="cgpa" type="number" min="0" max="10" step="any" required></div>
+          <div class="field"><label for="disability">Disability status</label><select id="disability" required><option value="">Choose…</option><option value="No">No</option><option value="Yes">Yes</option></select></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="new-password" minlength="8" maxlength="99" required></div>
+          <div class="field wide"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="99" required></div>
+        </div>
+        <p class="small">Password must be 8–99 bytes. Your password is securely hashed by the backend.</p>
+        <button id="registerButton" class="button" type="submit">Create account</button><p id="registerMessage" class="message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <footer class="footer">© 2026 ScholarSync — A Smart Scholarship Management System</footer>
+  <script>
+    "use strict";
+    const API=window.SCHOLARSYNC_API_BASE;const TOKEN_KEY="scholarsyncStudentToken";const $=id=>document.getElementById(id);const EMAIL=/^[^\s|@]+@[^\s|@]+\.[^\s|@.]+$/;
+    function setTab(tab){const login=tab==="login";$("loginForm").classList.toggle("hidden",!login);$("registerForm").classList.toggle("hidden",login);$("loginTab").classList.toggle("active",login);$("registerTab").classList.toggle("active",!login);$("loginTab").setAttribute("aria-selected",String(login));$("registerTab").setAttribute("aria-selected",String(!login));const params=new URLSearchParams(location.search);params.set("mode",login?"login":"register");history.replaceState(null,"",`${location.pathname}?${params.toString()}`);}
+    $("loginTab").addEventListener("click",()=>setTab("login"));$("registerTab").addEventListener("click",()=>setTab("register"));if(new URLSearchParams(location.search).get("mode")==="register")setTab("register");
+    function setBusy(button,busy,label){button.disabled=busy;button.textContent=busy?"Please wait…":label;}
+    async function request(path,body){let response;try{response=await fetch(`${API}${path}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}catch{throw new Error("Could not reach ScholarSync. Check that the backend is running and try again.");}let data;try{data=await response.json();}catch{throw new Error("ScholarSync returned an unreadable response. Please try again.");}if(!response.ok){const details=data.errors?Object.entries(data.errors).map(([field,message])=>`${field.replaceAll("_"," ")}: ${message}`).join(" "):"";throw new Error(details||data.message||"Request failed. Please try again.");}return data;}
+    $("loginForm").addEventListener("submit",async event=>{event.preventDefault();const message=$("loginMessage");message.className="message";message.textContent="";const email=$("loginEmail").value.trim();const password=$("loginPassword").value;if(!EMAIL.test(email)){message.textContent="Enter a valid email address.";return;}if(!password){message.textContent="Enter your password.";return;}const button=$("loginButton");setBusy(button,true,"Sign in");try{const data=await request("/auth/login",{email,password});if(!data.token)throw new Error("Login succeeded but no session was returned. Please try again.");sessionStorage.setItem(TOKEN_KEY,data.token);message.className="message success";message.textContent="Signed in. Opening ScholarSync…";const returnTo=new URLSearchParams(location.search).get("return");const safeReturn=returnTo&&!returnTo.startsWith("//")&&!/^[a-z][a-z0-9+.-]*:/i.test(returnTo)?returnTo:"student.html";location.href=safeReturn;}catch(error){message.textContent=error.message;}finally{setBusy(button,false,"Sign in");}});
+    $("registerForm").addEventListener("submit",async event=>{event.preventDefault();const message=$("registerMessage");message.className="message";message.textContent="";const values={name:$("name").value.trim(),email:$("email").value.trim(),course:$("course").value.trim(),category:$("category").value.trim(),state:$("state").value.trim(),gender:$("gender").value.trim(),annual_income:Number($("annualIncome").value),cgpa:Number($("cgpa").value),disability:$("disability").value,password:$("password").value};const limits={name:99,email:99,course:99,category:29,state:59,gender:19};for(const [field,limit]of Object.entries(limits)){if(!values[field]){message.textContent=`${field.replaceAll("_"," ")} is required.`;$(field).focus();return;}if(new TextEncoder().encode(values[field]).length>limit){message.textContent=`${field.replaceAll("_"," ")} is too long.`;$(field).focus();return;}}if(!EMAIL.test(values.email)){message.textContent="Enter a valid email address.";$("email").focus();return;}if(!$("annualIncome").value||!Number.isFinite(values.annual_income)||values.annual_income<0){message.textContent="Enter an annual income of zero or more.";$("annualIncome").focus();return;}if(!$("cgpa").value||!Number.isFinite(values.cgpa)||values.cgpa<0||values.cgpa>10){message.textContent="Enter a CGPA from 0 to 10.";$("cgpa").focus();return;}if(values.disability!=="Yes"&&values.disability!=="No"){message.textContent="Choose a disability status.";$("disability").focus();return;}const passwordBytes=new TextEncoder().encode(values.password).length;if(passwordBytes<8||passwordBytes>99||!values.password.trim()){message.textContent="Password must be 8 to 99 bytes and cannot be blank.";$("password").focus();return;}if(values.password!==$("confirmPassword").value){message.textContent="The passwords do not match.";$("confirmPassword").focus();return;}const button=$("registerButton");setBusy(button,true,"Create account");try{const data=await request("/auth/register",values);message.className="message success";message.textContent=`${data.message||"Registration successful."} You can now sign in.`;$("registerForm").reset();setTimeout(()=>{setTab("login");$("loginEmail").value=values.email;$("loginMessage").className="message success";$("loginMessage").textContent="Your account is ready. Sign in with your email and password.";$("loginPassword").focus();},900);}catch(error){message.textContent=error.message;}finally{setBusy(button,false,"Create account");}});
+    async function checkExistingSession(){const token=sessionStorage.getItem("scholarsyncStudentToken");if(!token)return;try{const response=await fetch(`${API}/auth/me`,{headers:{Authorization:`Bearer ${token}`}});if(response.ok){location.replace("student.html");return;}}catch{}sessionStorage.removeItem("scholarsyncStudentToken");}
+    checkExistingSession();
+  </script>
+</body>
+</html>

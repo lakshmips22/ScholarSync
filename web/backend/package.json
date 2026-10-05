@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "test": "node scripts/security-tests.js",
+    "db:init": "node scripts/init-database.js",
+    "db:import-scholarships": "node scripts/import-scholarships.js",
+    "start": "node server.js",
+    "start:frontend": "node scripts/serve-frontend.js",
+    "db:import-admin": "node scripts/import-admin.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

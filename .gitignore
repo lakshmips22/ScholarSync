@@ -1,0 +1,73 @@
+# Local C application records and backups
+/data/
+*.bak
+
+# Internal audit report contains production student/scholarship row identifiers
+/PHASE8_REPORT.md
+
+# Local SQLite databases and sidecar files
+*.sqlite
+*.sqlite-*
+*.sqlite-shm
+*.sqlite-wal
+/web/backend/database/*.sqlite
+/web/backend/database/*.sqlite-shm
+/web/backend/database/*.sqlite-wal
+*.db
+*.db-*
+/web/backend/database/backups/
+
+# Dependencies and generated binaries/build outputs
+node_modules/
+*.exe
+*.dll
+*.obj
+*.o
+*.class
+/coverage/
+/dist/
+/build/
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+**/secrets/
+**/secret/
+**/credentials/
+**/*credential*
+**/*secret*
+**/*apikey*
+**/*api-key*
+**/tokens/
+**/token/
+*.token
+*.token.*
+**/.npmrc
+**/.netrc
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Temporary files, logs, test output, and local evidence
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*.bak~
+/tmp/
+/temp/
+/test-results/
+/playwright-report/
+/artifacts/
+/evidence/
+/screenshots/
+**/evidence/
+**/screenshots/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
